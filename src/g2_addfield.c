@@ -140,8 +140,8 @@ g2int g2_addfield(unsigned char *cgrib,g2int ipdsnum,g2int *ipdstmpl,
 //  Check to see if beginning of GRIB message exists
 //
       if ( cgrib[0]!=G || cgrib[1]!=R || cgrib[2]!=I || cgrib[3]!=B ) {
-        printf("g2_addfield: GRIB not found in given message.\n");
-        printf("g2_addfield: Call to routine g2_create required to initialize GRIB messge.\n");
+        grib_compat_printf("g2_addfield: GRIB not found in given message.\n");
+        grib_compat_printf("g2_addfield: Call to routine g2_create required to initialize GRIB messge.\n");
         ierr=-1;
         return(ierr);
       }
@@ -154,7 +154,7 @@ g2int g2_addfield(unsigned char *cgrib,g2int ipdsnum,g2int *ipdstmpl,
 //
       if ( cgrib[lencurr-4]==s7 && cgrib[lencurr-3]==s7 &&
            cgrib[lencurr-2]==s7 && cgrib[lencurr-1]==s7 ) {
-        printf("g2_addfield: GRIB message already complete.  Cannot add new section.\n");
+        grib_compat_printf("g2_addfield: GRIB message already complete.  Cannot add new section.\n");
         ierr=-2;
         return(ierr);
       }
@@ -189,9 +189,9 @@ g2int g2_addfield(unsigned char *cgrib,g2int ipdsnum,g2int *ipdstmpl,
       //    If byte count for each section doesn't match current
       //    total length, then there is a problem.
         if ( len > lencurr ) {
-          printf("g2_addfield: Section byte counts don''t add to total.\n");
-          printf("g2_addfield: Sum of section byte counts = %ld\n",len);
-          printf("g2_addfield: Total byte count in Section 0 = %ld\n",lencurr);
+          grib_compat_printf("g2_addfield: Section byte counts don''t add to total.\n");
+          grib_compat_printf("g2_addfield: Sum of section byte counts = %ld\n",len);
+          grib_compat_printf("g2_addfield: Total byte count in Section 0 = %ld\n",lencurr);
           ierr=-3;
           return(ierr);
         }
@@ -200,8 +200,8 @@ g2int g2_addfield(unsigned char *cgrib,g2int ipdsnum,g2int *ipdstmpl,
 //  Sections 4 through 7 can only be added after section 3 or 7.
 //
       if ( (isecnum != 3) && (isecnum != 7) ) {
-        printf("g2_addfield: Sections 4-7 can only be added after Section 3 or 7.\n");
-        printf("g2_addfield: Section ',isecnum,' was the last found in given GRIB message.\n");
+        grib_compat_printf("g2_addfield: Sections 4-7 can only be added after Section 3 or 7.\n");
+        grib_compat_printf("g2_addfield: Section ',isecnum,' was the last found in given GRIB message.\n");
         ierr=-4;
         return(ierr);
 //
@@ -209,9 +209,9 @@ g2int g2_addfield(unsigned char *cgrib,g2int ipdsnum,g2int *ipdstmpl,
 //
       }
       else if ( ! issec3) {
-        printf("g2_addfield: Sections 4-7 can only be added if Section 3 was previously included.\n");
-        printf("g2_addfield: Section 3 was not found in given GRIB message.\n");
-        printf("g2_addfield: Call to routine addgrid required to specify Grid definition.\n");
+        grib_compat_printf("g2_addfield: Sections 4-7 can only be added if Section 3 was previously included.\n");
+        grib_compat_printf("g2_addfield: Section 3 was not found in given GRIB message.\n");
+        grib_compat_printf("g2_addfield: Call to routine addgrid required to specify Grid definition.\n");
         ierr=-6;
         return(ierr);
       }
@@ -336,7 +336,7 @@ g2int g2_addfield(unsigned char *cgrib,g2int ipdsnum,g2int *ipdstmpl,
         if ( JJ!=0 && KK!=0 && MM!=0 )
            specpack(pfld,ndpts,JJ,KK,MM,idrstmpl,cpack,&lcpack);
         else {
-           printf("g2_addfield: Cannot pack DRT 5.51.\n");
+          grib_compat_printf("g2_addfield: Cannot pack DRT 5.51.\n");
            return (-9);
         }
       }
@@ -392,7 +392,7 @@ g2int g2_addfield(unsigned char *cgrib,g2int ipdsnum,g2int *ipdstmpl,
       }
 #endif  /* USE_PNG */
       else {
-        printf("g2_addfield: Data Representation Template 5.%ld not yet implemented.\n",idrsnum);
+        grib_compat_printf("g2_addfield: Data Representation Template 5.%ld not yet implemented.\n",idrsnum);
         ierr=-7;
         return(ierr);
       }
@@ -461,8 +461,8 @@ g2int g2_addfield(unsigned char *cgrib,g2int ipdsnum,g2int *ipdstmpl,
       //  one already exists in the current GRIB message.
       //
       if ((ibmap==254) && ( ! isprevbmap)) {
-        printf("g2_addfield: Requested previously defined bitmap,");
-        printf(" but one does not exist in the current GRIB message.\n");
+        grib_compat_printf("g2_addfield: Requested previously defined bitmap,");
+        grib_compat_printf(" but one does not exist in the current GRIB message.\n");
         ierr=-8;
         return(ierr);
       }

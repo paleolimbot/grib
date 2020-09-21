@@ -11,7 +11,7 @@ g2int jpcunpack(unsigned char *cpack,g2int len,g2int *idrstmpl,g2int ndpts,
 // SUBPROGRAM:    jpcunpack
 //   PRGMMR: Gilbert          ORG: W/NP11    DATE: 2003-08-27
 //
-// ABSTRACT: This subroutine unpacks a data field that was packed into a 
+// ABSTRACT: This subroutine unpacks a data field that was packed into a
 //   JPEG2000 code stream
 //   using info from the GRIB2 Data Representation Template 5.40 or 5.40000.
 //
@@ -55,10 +55,10 @@ g2int jpcunpack(unsigned char *cpack,g2int len,g2int *idrstmpl,g2int ndpts,
 
          ifld=(g2int *)calloc(ndpts,sizeof(g2int));
          if ( ifld == 0 ) {
-            fprintf(stderr,"Could not allocate space in jpcunpack.\n  Data field NOT upacked.\n");
+            grib_compat_eprintf("Could not allocate space in jpcunpack.\n  Data field NOT upacked.\n");
             return(1);
          }
-         iret=(g2int)dec_jpeg2000(cpack,len,ifld);
+         iret=(g2int)dec_jpeg2000((char*) cpack,len,ifld);
          for (j=0;j<ndpts;j++) {
            fld[j]=(((g2float)ifld[j]*bscale)+ref)*dscale;
          }

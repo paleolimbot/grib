@@ -7,7 +7,7 @@ g2int g2_unpack4(unsigned char *cgrib,g2int *iofst,g2int *ipdsnum,g2int **ipdstm
                g2int *mappdslen,g2float **coordlist,g2int *numcoord)
 ////$$$  SUBPROGRAM DOCUMENTATION BLOCK
 //                .      .    .                                       .
-// SUBPROGRAM:    g2_unpack4 
+// SUBPROGRAM:    g2_unpack4
 //   PRGMMR: Gilbert         ORG: W/NP11    DATE: 2002-10-31
 //
 // ABSTRACT: This subroutine unpacks Section 4 (Product Definition Section)
@@ -24,17 +24,17 @@ g2int g2_unpack4(unsigned char *cgrib,g2int *iofst,g2int *ipdsnum,g2int **ipdstm
 //     cgrib    - Char array containing Section 4 of the GRIB2 message
 //     iofst    - Bit offset of the beginning of Section 4 in cgrib.
 //
-//   OUTPUT ARGUMENTS:      
+//   OUTPUT ARGUMENTS:
 //     iofst    - Bit offset of the end of Section 4, returned.
 //     ipdsnum  - Product Definition Template Number ( see Code Table 4.0)
-//     ipdstmpl - Pointer to integer array containing the data values for 
+//     ipdstmpl - Pointer to integer array containing the data values for
 //                the specified Product Definition
 //                Template ( N=ipdsnum ).  Each element of this integer
 //                array contains an entry (in the order specified) of Product
 //                Defintion Template 4.N
 //     mappdslen- Number of elements in ipdstmpl[].  i.e. number of entries
 //                in Product Defintion Template 4.N  ( N=ipdsnum ).
-//     coordlist- Pointer to real array containing floating point values 
+//     coordlist- Pointer to real array containing floating point values
 //                intended to document
 //                the vertical discretisation associated to model data
 //                on hybrid coordinate vertical levels.  (part of Section 4)
@@ -48,11 +48,11 @@ g2int g2_unpack4(unsigned char *cgrib,g2int *iofst,g2int *ipdsnum,g2int **ipdstm
 //                    Template.
 //                6 = memory allocation error
 //
-// REMARKS: 
+// REMARKS:
 //
 // ATTRIBUTES:
 //   LANGUAGE: C
-//   MACHINE:  
+//   MACHINE:
 //
 //$$$//
 {
@@ -112,7 +112,7 @@ g2int g2_unpack4(unsigned char *cgrib,g2int *iofst,g2int *ipdsnum,g2int **ipdstm
          *ipdstmpl=lipdstmpl;
       }
       for (i=0;i<mappds->maplen;i++) {
-        nbits=abs(mappds->map[i])*8;
+        nbits=labs(mappds->map[i])*8;
         if ( mappds->map[i] >= 0 ) {
           gbit(cgrib,lipdstmpl+i,*iofst,nbits);
         }
@@ -139,7 +139,7 @@ g2int g2_unpack4(unsigned char *cgrib,g2int *iofst,g2int *ipdsnum,g2int **ipdstm
         //   Unpack the rest of the Product Definition Template
         j=0;
         for (i=*mappdslen;i<newlen;i++) {
-          nbits=abs(mappds->ext[j])*8;
+          nbits=labs(mappds->ext[j])*8;
           if ( mappds->ext[j] >= 0 ) {
             gbit(cgrib,lipdstmpl+i,*iofst,nbits);
           }
@@ -179,7 +179,7 @@ g2int g2_unpack4(unsigned char *cgrib,g2int *iofst,g2int *ipdsnum,g2int **ipdstm
         free(coordieee);
         *iofst=*iofst+(32*(*numcoord));
       }
-      
+
       return(ierr);    // End of Section 4 processing
 
 }

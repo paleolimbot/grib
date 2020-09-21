@@ -11,7 +11,7 @@ void cmplxpack(g2float *fld,g2int ndpts, g2int idrsnum,g2int *idrstmpl,
 //   packing algorithm as defined in the GRIB2 documention.  It
 //   supports GRIB2 complex packing templates with or without
 //   spatial differences (i.e. DRTs 5.2 and 5.3).
-//   It also fills in GRIB2 Data Representation Template 5.2 or 5.3 
+//   It also fills in GRIB2 Data Representation Template 5.2 or 5.3
 //   with the appropriate values.
 //
 // PROGRAM HISTORY LOG:
@@ -40,7 +40,7 @@ void cmplxpack(g2float *fld,g2int ndpts, g2int idrsnum,g2int *idrstmpl,
 //                    .
 //                    .
 //
-//   OUTPUT ARGUMENT LIST: 
+//   OUTPUT ARGUMENT LIST:
 //     idrstmpl - Contains the array of values for Data Representation
 //                Template 5.3
 //                [0] = Reference value - set by compack routine.
@@ -59,7 +59,7 @@ void cmplxpack(g2float *fld,g2int ndpts, g2int idrsnum,g2int *idrstmpl,
 //
 //$$$
 {
-      
+
 
       if ( idrstmpl[6] == 0 ) {       // No internal missing values
          compack(fld,ndpts,idrsnum,idrstmpl,cpack,lcpack);
@@ -68,7 +68,7 @@ void cmplxpack(g2float *fld,g2int ndpts, g2int idrsnum,g2int *idrstmpl,
          misspack(fld,ndpts,idrsnum,idrstmpl,cpack,lcpack);
       }
       else {
-         printf("cmplxpack: Don:t recognize Missing value option.");
+         grib_compat_printf("cmplxpack: Don:t recognize Missing value option.");
          *lcpack=-1;
       }
 

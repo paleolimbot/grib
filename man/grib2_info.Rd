@@ -2,15 +2,23 @@
 % Please edit documentation in R/grib-info.R
 \name{grib2_info}
 \alias{grib2_info}
+\alias{grib2_field}
 \title{Read grib meta information}
 \usage{
-grib2_info(path, max_length = 100L)
+grib2_info(path, max_messages = 100L)
+
+grib2_field(path, which_field = 1L, which_message = 1L, expand = FALSE)
 }
 \arguments{
 \item{path}{File path to a gridded binary file}
 
-\item{max_length}{The maximum number of meta records to read. Typically
-this will return a single record.}
+\item{max_messages}{The number of messages to look for in a file. Typically
+there is one message per file.}
+
+\item{which_message, which_field}{Which message/field within the file to read.}
+
+\item{expand}{Use \code{FALSE} to read meta information; \code{TRUE} will unpack and
+expand the contents of the file into memory.}
 }
 \description{
 Read grib meta information

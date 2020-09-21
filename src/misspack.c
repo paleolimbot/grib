@@ -13,7 +13,7 @@ void misspack(g2float *fld,g2int ndpts,g2int idrsnum,g2int *idrstmpl,
 //   packing algorithm as defined in the GRIB2 documention.  It
 //   supports GRIB2 complex packing templates with or without
 //   spatial differences (i.e. DRTs 5.2 and 5.3).
-//   It also fills in GRIB2 Data Representation Template 5.2 or 5.3 
+//   It also fills in GRIB2 Data Representation Template 5.2 or 5.3
 //   with the appropriate values.
 //   This version assumes that Missing Value Management is being used and that
 //   1 or 2 missing values appear in the data.
@@ -44,7 +44,7 @@ void misspack(g2float *fld,g2int ndpts,g2int idrsnum,g2int *idrstmpl,
 //                    .
 //                    .
 //
-//   OUTPUT ARGUMENT LIST: 
+//   OUTPUT ARGUMENT LIST:
 //     idrstmpl - Contains the array of values for Data Representation
 //                Template 5.3
 //                [0] = Reference value - set by misspack routine.
@@ -59,7 +59,7 @@ void misspack(g2float *fld,g2int ndpts,g2int idrsnum,g2int *idrstmpl,
 //
 // ATTRIBUTES:
 //   LANGUAGE: C
-//   MACHINE:  
+//   MACHINE:
 //
 //$$$
 {
@@ -80,12 +80,12 @@ void misspack(g2float *fld,g2int ndpts,g2int idrsnum,g2int *idrstmpl,
       static g2int simple_alg = 0;
       static g2float alog2=0.69314718;       //  ln(2.0)
       static g2int one=1;
-      
+
       bscale=int_power(2.0,-idrstmpl[1]);
       dscale=int_power(10.0,idrstmpl[2]);
       missopt=idrstmpl[6];
       if ( missopt != 1 && missopt != 2 ) {
-         printf("misspack: Unrecognized option.\n");
+        grib_compat_printf("misspack: Unrecognized option.\n");
          *lcpack=-1;
          return;
       }
@@ -126,10 +126,10 @@ void misspack(g2float *fld,g2int ndpts,g2int idrsnum,g2int *idrstmpl,
       }
 //
 //  Allocate work arrays:
-//  Note: -ifldmiss[j],j=0,ndpts-1 is a map of original field indicating 
+//  Note: -ifldmiss[j],j=0,ndpts-1 is a map of original field indicating
 //         which of the original data values
 //         are primary missing (1), sencondary missing (2) or non-missing (0).
-//        -jfld[j],j=0,nonmiss-1 is a subarray of just the non-missing values 
+//        -jfld[j],j=0,nonmiss-1 is a subarray of just the non-missing values
 //         from the original field.
 //
       //if (rmin != rmax) {
@@ -194,7 +194,7 @@ void misspack(g2float *fld,g2int ndpts,g2int idrsnum,g2int *idrstmpl,
            //   find num of bits need to store minsd and add 1 extra bit
            //   to indicate sign
            //
-           temp=log((double)(abs(minsd)+1))/alog2;
+           temp=log((double)(labs(minsd)+1))/alog2;
            nbitsd=(g2int)ceil(temp)+1;
            //
            //   find num of bits need to store ifld[0] ( and ifld[1]
@@ -220,7 +220,7 @@ void misspack(g2float *fld,g2int ndpts,g2int idrsnum,g2int *idrstmpl,
               else {
                  sbit(cpack,&one,iofst,1);
                  iofst=iofst+1;
-                 itemp=abs(ival1);
+                 itemp=labs(ival1);
                  sbit(cpack,&itemp,iofst,nbitsd-1);
                  iofst=iofst+nbitsd-1;
               }
@@ -233,7 +233,7 @@ void misspack(g2float *fld,g2int ndpts,g2int idrsnum,g2int *idrstmpl,
                  else {
                     sbit(cpack,&one,iofst,1);
                     iofst=iofst+1;
-                    itemp=abs(ival2);
+                    itemp=labs(ival2);
                     sbit(cpack,&itemp,iofst,nbitsd-1);
                     iofst=iofst+nbitsd-1;
                  }
@@ -246,7 +246,7 @@ void misspack(g2float *fld,g2int ndpts,g2int idrsnum,g2int *idrstmpl,
               else {
                  sbit(cpack,&one,iofst,1);
                  iofst=iofst+1;
-                 itemp=abs(minsd);
+                 itemp=labs(minsd);
                  sbit(cpack,&itemp,iofst,nbitsd-1);
                  iofst=iofst+nbitsd-1;
               }
@@ -306,7 +306,7 @@ void misspack(g2float *fld,g2int ndpts,g2int idrsnum,g2int *idrstmpl,
            free(jmax);
            free(lbit);
         }
-        //  
+        //
         //  For each group, find the group's reference value (min)
         //  and the number of bits needed to hold the remaining values
         //
@@ -341,7 +341,7 @@ void misspack(g2float *fld,g2int ndpts,g2int idrsnum,g2int *idrstmpl,
              for ( lg=0; lg<glen[ng]; lg++ ) {
                 if ( ifldmiss[j] == 0 ) {
                   if (ifld[j] < gref[ng]) gref[ng]=ifld[j];
-                  if (ifld[j] > imax) imax=ifld[j]; 
+                  if (ifld[j] > imax) imax=ifld[j];
                 }
                 j++;
              }
@@ -366,14 +366,14 @@ void misspack(g2float *fld,g2int ndpts,g2int idrsnum,g2int *idrstmpl,
                  ifld[j]=mtemp-1;
               else if (ifldmiss[j] == 2)         // secondary missing
                  ifld[j]=mtemp-2;
-              
+
               j++;
            }
            //   increment fld array counter
            n=n+glen[ng];
         }
-        //  
-        //  Find max of the group references and calc num of bits needed 
+        //
+        //  Find max of the group references and calc num of bits needed
         //  to pack each groups reference value, then
         //  pack up group reference values
         //

@@ -11,8 +11,8 @@ g2int specunpack(unsigned char *cpack,g2int *idrstmpl,g2int ndpts,g2int JJ,
 // SUBPROGRAM:    specunpack
 //   PRGMMR: Gilbert          ORG: W/NP11    DATE: 2000-06-21
 //
-// ABSTRACT: This subroutine unpacks a spectral data field that was packed 
-//   using the complex packing algorithm for spherical harmonic data as 
+// ABSTRACT: This subroutine unpacks a spectral data field that was packed
+//   using the complex packing algorithm for spherical harmonic data as
 //   defined in the GRIB2 documention,
 //   using info from the GRIB2 Data Representation Template 5.51.
 //
@@ -39,7 +39,7 @@ g2int specunpack(unsigned char *cpack,g2int *idrstmpl,g2int ndpts,g2int JJ,
 //
 // ATTRIBUTES:
 //   LANGUAGE: C
-//   MACHINE:  
+//   MACHINE:
 //
 //$$$
 {
@@ -73,7 +73,7 @@ g2int specunpack(unsigned char *cpack,g2int *idrstmpl,g2int ndpts,g2int JJ,
 //
          pscale=(g2float *)malloc((JJ+MM+1)*sizeof(g2float));
          tscale=(g2float)idrstmpl[4]*1E-6;
-         for (n=Js;n<=JJ+MM;n++) 
+         for (n=Js;n<=JJ+MM;n++)
               pscale[n]=pow((g2float)(n*(n+1)),-tscale);
 //
 //   Assemble spectral coeffs back to original order.
@@ -106,7 +106,7 @@ g2int specunpack(unsigned char *cpack,g2int *idrstmpl,g2int ndpts,g2int JJ,
 
       }
       else {
-         printf("specunpack: Cannot handle 64 or 128-bit floats.\n");
+         grib_compat_printf("specunpack: Cannot handle 64 or 128-bit floats.\n");
          for (j=0;j<ndpts;j++) fld[j]=0.0;
          return -3;
       }

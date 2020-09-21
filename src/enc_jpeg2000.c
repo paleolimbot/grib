@@ -157,7 +157,7 @@ int enc_jpeg2000(unsigned char *cin,g2int width,g2int height,g2int nbits,
 //
     ier=jpc_encode(&image,jpcstream,opts);
     if ( ier != 0 ) {
-       printf(" jpc_encode return = %d \n",ier);
+        grib_compat_printf(" jpc_encode return = %d \n",ier);
        return -3;
     }
 //

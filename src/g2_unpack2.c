@@ -5,7 +5,7 @@
 g2int g2_unpack2(unsigned char *cgrib,g2int *iofst,g2int *lencsec2,unsigned char **csec2)
 ////$$$  SUBPROGRAM DOCUMENTATION BLOCK
 //                .      .    .                                       .
-// SUBPROGRAM:    g2_unpack2 
+// SUBPROGRAM:    g2_unpack2
 //   PRGMMR: Gilbert         ORG: W/NP11    DATE: 2002-10-31
 //
 // ABSTRACT: This subroutine unpacks Section 2 (Local Use Section)
@@ -22,7 +22,7 @@ g2int g2_unpack2(unsigned char *cgrib,g2int *iofst,g2int *lencsec2,unsigned char
 //     cgrib    - char array containing Section 2 of the GRIB2 message
 //     iofst    - Bit offset for the beginning of Section 2 in cgrib.
 //
-//   OUTPUT ARGUMENT LIST:      
+//   OUTPUT ARGUMENT LIST:
 //     iofst    - Bit offset at the end of Section 2, returned.
 //     lencsec2 - Length (in octets) of Local Use data
 //     csec2    - Pointer to a char array containing local use data
@@ -37,7 +37,7 @@ g2int g2_unpack2(unsigned char *cgrib,g2int *iofst,g2int *lencsec2,unsigned char
 //
 // ATTRIBUTES:
 //   LANGUAGE: C
-//   MACHINE: 
+//   MACHINE:
 //
 //$$$//
 {
@@ -59,7 +59,7 @@ g2int g2_unpack2(unsigned char *cgrib,g2int *iofst,g2int *lencsec2,unsigned char
       if ( isecnum != 2 ) {
          ierr=2;
          *lencsec2=0;
-         fprintf(stderr,"g2_unpack2: Not Section 2 data.\n");
+         grib_compat_eprintf("g2_unpack2: Not Section 2 data.\n");
          return(ierr);
       }
 
@@ -74,7 +74,7 @@ g2int g2_unpack2(unsigned char *cgrib,g2int *iofst,g2int *lencsec2,unsigned char
          *lencsec2=0;
          return(ierr);
       }
-      
+
       //printf(" SAGIPO %d \n",(int)ipos);
       for (j=0;j<*lencsec2;j++) {
          *(*csec2+j)=cgrib[ipos+j];

@@ -7,7 +7,7 @@ g2int g2_unpack3(unsigned char *cgrib,g2int *iofst,g2int **igds,g2int **igdstmpl
                          g2int *mapgridlen,g2int **ideflist,g2int *idefnum)
 ////$$$  SUBPROGRAM DOCUMENTATION BLOCK
 //                .      .    .                                       .
-// SUBPROGRAM:    g2_unpack3 
+// SUBPROGRAM:    g2_unpack3
 //   PRGMMR: Gilbert         ORG: W/NP11    DATE: 2002-10-31
 //
 // ABSTRACT: This routine unpacks Section 3 (Grid Definition Section)
@@ -24,24 +24,24 @@ g2int g2_unpack3(unsigned char *cgrib,g2int *iofst,g2int **igds,g2int **igdstmpl
 //     cgrib    - Char array ontaining Section 3 of the GRIB2 message
 //     iofst    - Bit offset for the beginning of Section 3 in cgrib.
 //
-//   OUTPUT ARGUMENTS:      
+//   OUTPUT ARGUMENTS:
 //     iofst    - Bit offset at the end of Section 3, returned.
-//     igds     - Contains information read from the appropriate GRIB Grid 
+//     igds     - Contains information read from the appropriate GRIB Grid
 //                Definition Section 3 for the field being returned.
 //                igds[0]=Source of grid definition (see Code Table 3.0)
 //                igds[1]=Number of grid points in the defined grid.
-//                igds[2]=Number of octets needed for each 
-//                            additional grid points definition.  
+//                igds[2]=Number of octets needed for each
+//                            additional grid points definition.
 //                            Used to define number of
 //                            points in each row ( or column ) for
-//                            non-regular grids.  
+//                            non-regular grids.
 //                            = 0, if using regular grid.
-//                igds[3]=Interpretation of list for optional points 
+//                igds[3]=Interpretation of list for optional points
 //                            definition.  (Code Table 3.11)
 //                igds[4]=Grid Definition Template Number (Code Table 3.1)
-//     igdstmpl - Pointer to integer array containing the data values for 
+//     igdstmpl - Pointer to integer array containing the data values for
 //                the specified Grid Definition
-//                Template ( NN=igds[4] ).  Each element of this integer 
+//                Template ( NN=igds[4] ).  Each element of this integer
 //                array contains an entry (in the order specified) of Grid
 //                Defintion Template 3.NN
 //     mapgridlen- Number of elements in igdstmpl[].  i.e. number of entries
@@ -59,7 +59,7 @@ g2int g2_unpack3(unsigned char *cgrib,g2int *iofst,g2int **igds,g2int **igdstmpl
 //                    Template.
 //                6 = memory allocation error
 //
-// REMARKS: 
+// REMARKS:
 //
 // ATTRIBUTES:
 //   LANGUAGE: C
@@ -134,7 +134,7 @@ g2int g2_unpack3(unsigned char *cgrib,g2int *iofst,g2int **igds,g2int **igdstmpl
         }
         ibyttem=0;
         for (i=0;i<*mapgridlen;i++) {
-          nbits=abs(mapgrid->map[i])*8;
+          nbits=labs(mapgrid->map[i])*8;
           if ( mapgrid->map[i] >= 0 ) {
             gbit(cgrib,ligdstmpl+i,*iofst,nbits);
           }
@@ -144,7 +144,7 @@ g2int g2_unpack3(unsigned char *cgrib,g2int *iofst,g2int **igds,g2int **igdstmpl
             if (isign == 1) ligdstmpl[i]=-1*ligdstmpl[i];
           }
           *iofst=*iofst+nbits;
-          ibyttem=ibyttem+abs(mapgrid->map[i]);
+          ibyttem=ibyttem+labs(mapgrid->map[i]);
         }
         //
         //   Check to see if the Grid Definition Template needs to be
@@ -162,7 +162,7 @@ g2int g2_unpack3(unsigned char *cgrib,g2int *iofst,g2int **igds,g2int **igdstmpl
           *igdstmpl=ligdstmpl;
           j=0;
           for (i=*mapgridlen;i<newlen;i++) {
-            nbits=abs(mapgrid->ext[j])*8;
+            nbits=labs(mapgrid->ext[j])*8;
             if ( mapgrid->ext[j] >= 0 ) {
               gbit(cgrib,ligdstmpl+i,*iofst,nbits);
             }
@@ -172,7 +172,7 @@ g2int g2_unpack3(unsigned char *cgrib,g2int *iofst,g2int **igds,g2int **igdstmpl
               if (isign == 1) ligdstmpl[i]=-1*ligdstmpl[i];
             }
             *iofst=*iofst+nbits;
-            ibyttem=ibyttem+abs(mapgrid->ext[j]);
+            ibyttem=ibyttem+labs(mapgrid->ext[j]);
             j++;
           }
           *mapgridlen=newlen;
@@ -209,6 +209,6 @@ g2int g2_unpack3(unsigned char *cgrib,g2int *iofst,g2int **igds,g2int **igdstmpl
          *idefnum=0;
          *ideflist=0;    // NULL
       }
-      
+
       return(ierr);    // End of Section 3 processing
 }
