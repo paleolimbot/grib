@@ -1,6 +1,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <memory.h>
 #include "grib2.h"
 #include <Rinternals.h>
 
@@ -147,18 +148,59 @@
   SEXP field##index_ = PROTECT(Rf_allocVector(INTSXP, 1));     \
   INTEGER(field##index_)[0] = value_;                          \
   SET_VECTOR_ELT(lst, index_, field##index_);                  \
+  UNPROTECT(1)                                                 \
+
+#define INT_ARRAY_FIELD(index_, value_, len_)                  \
+  SEXP field##index_ = PROTECT(Rf_allocVector(INTSXP, len_));  \
+  int* pField##index_ = INTEGER(field##index_);                \
+  for (g2int i = 0; i < len_; i++) {                           \
+    pField##index_[i] = value_[i];                             \
+  }                                                            \
+  SET_VECTOR_ELT(lst, index_, field##index_);                  \
+  UNPROTECT(1)                                                 \
+
+#define RAW_ARRAY_FIELD(index_, value_, len_)                  \
+  SEXP field##index_ = PROTECT(Rf_allocVector(RAWSXP, len_));  \
+  memcpy(RAW(field##index_), value_, len_);                    \
+  SET_VECTOR_ELT(lst, index_, field##index_);                  \
   UNPROTECT(1)
 
 SEXP gribfield_to_list(gribfield* gfld) {
   const char* names[] = {
-    "version",
-    // "discipline", "idsect", "local", "ifldnum", "griddef",
-    // "ngrdopts", "numoct_opt", "interp_opt",
+    "version", "discipline",
+    "idsect", "local",
+    "ifldnum",
+    "griddef","ngrdpts",
+    "numoct_opt", "interp_opt",
+    "list_opt",
+    "igdtnum", "igdtmpl",
+    "ipdtnum", "ipdtmpl",
+    "coord_list",
+    "ndpts", "idrtnum",
+    "idrtmpl",
     ""
   };
 
   SEXP lst = PROTECT(Rf_mkNamed(VECSXP, names));
+
   INT_FIELD(0, gfld->version);
+  INT_FIELD(1, gfld->discipline);
+  INT_ARRAY_FIELD(2, gfld->idsect, gfld->idsectlen);
+  RAW_ARRAY_FIELD(3, gfld->local, gfld->locallen);
+  INT_FIELD(4, gfld->ifldnum);
+  INT_FIELD(5, gfld->griddef);
+  INT_FIELD(6, gfld->ngrdpts);
+  INT_FIELD(7, gfld->numoct_opt);
+  INT_FIELD(8, gfld->interp_opt);
+  INT_ARRAY_FIELD(9, gfld->list_opt, gfld->num_opt);
+  INT_FIELD(10, gfld->igdtnum);
+  INT_ARRAY_FIELD(11, gfld->igdtmpl, gfld->igdtlen);
+  INT_FIELD(12, gfld->ipdtnum);
+  INT_ARRAY_FIELD(13, gfld->ipdtmpl, gfld->ipdtlen);
+  INT_ARRAY_FIELD(14, gfld->coord_list, gfld->num_coord);
+  INT_FIELD(15, gfld->ndpts);
+  INT_FIELD(16, gfld->idrtnum);
+  INT_ARRAY_FIELD(17, gfld->idrtmpl, gfld->idrtlen);
 
   UNPROTECT(1);
   return lst;
