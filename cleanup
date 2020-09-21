@@ -1,2 +1,2 @@
 #!/bin/sh
-rm `find src -name *.o`
+rm src/Makevars configure.log `find src -name *.o`

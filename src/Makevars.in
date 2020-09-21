@@ -1,5 +1,5 @@
-PKG_CFLAGS=-DUSE_JPEG2000 -DUSE_PNG -Iinclude
-PKG_LIBS=-L/usr/local/Cellar/libpng/1.6.37/lib -lpng16 -lz -L/usr/local/Cellar/jpeg/9d/lib -ljpeg
+PKG_CFLAGS=-DUSE_JPEG2000 -DUSE_PNG -Iinclude @cflags@
+PKG_LIBS=@libs@
 
 OBJECTS = cmplxpack.o\
     compack.o\
