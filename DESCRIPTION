@@ -1,0 +1,15 @@
+Package: grib
+Title: Read Gridded Binary ('GRIB') Files
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Dewey",
+           family = "Dunnington",
+           role = c("aut", "cre"),
+           email = "dewey@fishandwhistle.net",
+           comment = c(ORCID = "0000-0002-9415-4582"))
+Description: Reads 'GRIB' and 'GRIB2' files.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
