@@ -6,21 +6,9 @@
 /* This preprocessor symbol identifies the version of JasPer. */
 #define	JAS_VERSION "unknown"
 
-#define JAS_HAVE_FCNTL_H 1
-#define JAS_HAVE_IO_H 1
-#define JAS_HAVE_UNISTD_H 1
-#define JAS_HAVE_SYS_TIME_H 1
-#define JAS_HAVE_SYS_TYPES_H 1
-
-#define JAS_HAVE_GETTIMEOFDAY 1
-#define JAS_HAVE_GETRUSAGE 1
-
-#define JAS_HAVE_GL_GLUT_H 1
-#define JAS_HAVE_GLUT_H 1
-
 #define JAS_HAVE_SNPRINTF	1
 
-#define ssize_t long long
+#define ssize_t long long int
 
 #if !defined(JAS_DEC_DEFAULT_MAX_SAMPLES)
 #define JAS_DEC_DEFAULT_MAX_SAMPLES (64 * ((size_t) 1048576))
