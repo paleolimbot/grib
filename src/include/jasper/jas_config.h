@@ -7,6 +7,7 @@
 #define	JAS_VERSION "unknown"
 
 #define JAS_HAVE_SNPRINTF	1
+#define JAS_HAVE_UNISTD_H 1
 
 #if !defined(JAS_DEC_DEFAULT_MAX_SAMPLES)
 #define JAS_DEC_DEFAULT_MAX_SAMPLES (64 * ((size_t) 1048576))
