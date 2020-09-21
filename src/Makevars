@@ -1,1 +1,2 @@
 PKG_CFLAGS=-DUSE_JPEG2000 -DUSE_PNG
+PKG_LIBS=-L/usr/local/Cellar/jasper/2.0.16_1/lib -ljasper -L/usr/local/Cellar/libpng/1.6.37/lib -lpng16 -lz

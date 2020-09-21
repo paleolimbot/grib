@@ -16,7 +16,7 @@
 *   PRGMMR: Gilbert          ORG: W/NP11     DATE: 2002-12-02
 *
 * ABSTRACT: This Function decodes a JPEG2000 code stream specified in the
-*   JPEG2000 Part-1 standard (i.e., ISO/IEC 15444-1) using JasPer 
+*   JPEG2000 Part-1 standard (i.e., ISO/IEC 15444-1) using JasPer
 *   Software version 1.500.4 (or 1.700.2) written by the University of British
 *   Columbia and Image Power Inc, and others.
 *   JasPer is available at http://www.ece.uvic.ca/~mdadams/jasper/.
@@ -61,21 +61,21 @@
 //    jas_init();
 
     ier=0;
-//   
+//
 //     Create jas_stream_t containing input JPEG200 codestream in memory.
-//       
+//
 
     jpcstream=jas_stream_memopen(injpc,bufsize);
 
-//   
+//
 //     Decode JPEG200 codestream into jas_image_t structure.
-//       
+//
     image=jpc_decode(jpcstream,opts);
     if ( image == 0 ) {
        printf(" jpc_decode return\n");
        return -3;
     }
-    
+
     pcmpt=image->cmpts_[0];
 /*
     printf(" SAGOUT DECODE:\n");
@@ -115,7 +115,7 @@
        return (-5);
     }
 
-// 
+//
 //    Create a data matrix of grayscale image values decoded from
 //    the jpeg2000 codestream.
 //
@@ -126,8 +126,8 @@
 //    Copy data matrix to output integer array.
 //
     k=0;
-    for (i=0;i<pcmpt->height_;i++) 
-      for (j=0;j<pcmpt->width_;j++) 
+    for (i=0;i<pcmpt->height_;i++)
+      for (j=0;j<pcmpt->width_;j++)
         outfld[k++]=data->rows_[i][j];
 //
 //     Clean up JasPer work structures.
