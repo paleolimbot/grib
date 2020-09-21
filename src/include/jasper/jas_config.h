@@ -8,8 +8,6 @@
 
 #define JAS_HAVE_SNPRINTF	1
 
-typedef long long ssize_t;
-
 #if !defined(JAS_DEC_DEFAULT_MAX_SAMPLES)
 #define JAS_DEC_DEFAULT_MAX_SAMPLES (64 * ((size_t) 1048576))
 #endif

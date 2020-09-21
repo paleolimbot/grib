@@ -1182,7 +1182,7 @@ long jas_stream_length(jas_stream_t *stream)
 /* FIXME integral type */
 static int mem_read(jas_stream_obj_t *obj, char *buf, int cnt)
 {
-	ssize_t n;
+	long long n;
 	jas_stream_memobj_t *m;
 	assert(cnt >= 0);
 	assert(buf);
