@@ -85,7 +85,7 @@
 #if defined(JAS_HAVE_UNISTD_H)
 #include <unistd.h>
 #endif
-#if defined(WIN32) || defined(JAS_HAVE_IO_H)
+#if defined(_WIN32) || defined(JAS_HAVE_IO_H)
 #include <io.h>
 #endif
 
