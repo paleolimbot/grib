@@ -82,11 +82,10 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <ctype.h>
-#if defined(JAS_HAVE_UNISTD_H)
-#include <unistd.h>
-#endif
-#if defined(_WIN32) || defined(JAS_HAVE_IO_H)
+#if defined(_WIN32) || defined(WIN32)
 #include <io.h>
+#else
+#include <unistd.h>
 #endif
 
 #include "jasper/jas_debug.h"
